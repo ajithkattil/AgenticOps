@@ -5,13 +5,13 @@ if os.getenv("HF_SPACE_ID") is None:
     from dotenv import load_dotenv
     load_dotenv()
 
-from langchain_community.llms import HuggingFaceHub
+from langchain_huggingface import HuggingFaceEndpoint  # ✅ Updated import
 from langchain.schema import HumanMessage
 from tools.log_parser import extract_errors
 from retriever.kb_ingest import search_kb
 
-# Initialize Hugging Face hosted LLM
-llm = HuggingFaceHub(
+# ✅ Updated to use new class
+llm = HuggingFaceEndpoint(
     repo_id="mistralai/Mistral-7B-Instruct-v0.2",
     huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
     model_kwargs={

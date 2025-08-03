@@ -7,3 +7,5 @@ gradio
 python-dotenv
 faiss-cpu
 numpy<2
+langchain-huggingface
+
