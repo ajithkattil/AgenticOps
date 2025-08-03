@@ -1,6 +1,9 @@
-gradio
 langchain
+langchain-community
+langchain-huggingface
+sentence-transformers
+torch
+gradio
+python-dotenv
 faiss-cpu
-openai
-ollama
-requests
+numpy<2

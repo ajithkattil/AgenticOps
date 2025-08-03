@@ -1,0 +1,39 @@
+[Jenkins]
+The error "workspace already in use" usually means another build is holding a lock. Use the "Wipe out current workspace" option and re-trigger the build.
+If you see "channel is already closed", it often means an agent lost connection. Restart the agent or remove offline nodes.
+
+[Kubernetes]
+"CrashLoopBackOff" is typically due to application errors or misconfiguration. Run `kubectl logs <pod>` to get logs and debug further.
+"ImagePullBackOff" errors usually indicate incorrect image name or registry access issues. Verify your image and credentials.
+If a pod stays in "Pending" state, it might be due to insufficient node resources or missing persistent volumes.
+
+[Docker]
+If you get "no space left on device", clean up unused containers/images with `docker system prune`.
+For "permission denied" errors on `docker-compose up`, check if the user is in the `docker` group or try running with `sudo`.
+
+[Helm]
+If you encounter "cannot patch resource" during `helm upgrade`, it's often safer to run `helm uninstall` followed by a clean `helm install`.
+If you get "no deployed releases", it means no release with that name exists in the namespace. Check with `helm list -n <namespace>`.
+
+[Terraform]
+A common issue is "Error locking state file". This usually means another process is running `terraform apply`. Wait or unlock manually via the backend.
+"Cycle in resource dependency" errors indicate circular dependencies. Use `depends_on` carefully to break the cycle.
+
+[Nexus]
+When deploying to Nexus, "403 Forbidden" usually indicates permission or role issues. Check user roles for `nx-deploy`.
+"Invalid checksum" means the file content changed after upload started. Re-upload the file using a fresh connection.
+
+[SonarQube]
+"Unable to register sensor" usually means a version mismatch between SonarScanner and SonarQube server.
+"Quality Gate failed" indicates the code did not meet minimum coverage or maintainability thresholds. Review your analysis report.
+
+[GitHub Actions]
+A job stuck in "queued" status for long durations might mean no available runner is assigned. Check your runner pool or `runs-on` label.
+Secrets must be defined in repository settings. A missing secret will cause the step to fail silently.
+
+[Prometheus]
+"Context deadline exceeded" in Prometheus scrapes means the target was unreachable or slow to respond. Check service/network latency.
+Memory usage in Prometheus can grow significantly with high cardinality metrics. Use labels carefully.
+
+[ArgoCD]
+"Resource not found" errors in sync operations often mean a mismatch between declared and actual namespace. Ensure

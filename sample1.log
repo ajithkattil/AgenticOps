@@ -1,0 +1,30 @@
+2024-08-03 09:43:12 INFO  [AuthService] Starting authentication service on port 8080...
+2024-08-03 09:43:12 INFO  [K8sHealthCheck] Liveness probe: PASS
+2024-08-03 09:43:13 WARN  [PaymentService] Deprecated API call to /chargeCard used by mobile client
+2024-08-03 09:43:14 ERROR [UserService] java.lang.NullPointerException: Cannot read field "email" because "user" is null
+	at com.example.user.UserService.sendEmail(UserService.java:82)
+	at com.example.user.UserService.register(UserService.java:45)
+	at com.example.App.main(App.java:12)
+
+2024-08-03 09:43:15 INFO  [RedisCache] Connected to Redis at redis-master:6379
+2024-08-03 09:43:15 ERROR [NodeFrontend] TypeError: Cannot read properties of undefined (reading 'status')
+	at renderUser (/app/src/components/UserCard.js:88:22)
+	at render (/app/src/App.js:212:10)
+	at processRequest (/app/src/server.js:57:5)
+
+2024-08-03 09:43:17 INFO  [KafkaConsumer] Subscribed to topic: order-events
+2024-08-03 09:43:17 ERROR [OrderService] org.postgresql.util.PSQLException: FATAL: remaining connection slots are reserved for non-replication superuser connections
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:262)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnection(ConnectionFactoryImpl.java:95)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:233)
+
+2024-08-03 09:43:18 INFO  [PrometheusExporter] Metrics exposed at :9090/metrics
+2024-08-03 09:43:20 ERROR [AuthService] com.auth0.jwt.exceptions.TokenExpiredException: The Token has expired on Sat Aug 03 09:43:20 UTC 2024.
+	at com.auth0.jwt.JWTVerifier.verify(JWTVerifier.java:298)
+	at com.example.auth.JwtService.verify(JwtService.java:74)
+	at com.example.auth.AuthFilter.doFilter(AuthFilter.java:54)
+
+2024-08-03 09:43:22 WARN  [K8sPodStatus] CrashLoopBackOff detected for pod auth-service-ccf88dd95-x2qgj
+2024-08-03 09:43:22 ERROR [K8sEvents] Back-off restarting failed container
+2024-08-03 09:43:23 INFO  [CI/CD Pipeline] Triggering Jenkins job: build-user-service
+2024-08-03 09:43:24 ERROR [JenkinsAPI] 401 Unauthorized - Jenkins token expired or missing
