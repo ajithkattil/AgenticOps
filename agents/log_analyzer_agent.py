@@ -14,11 +14,10 @@ from retriever.kb_ingest import search_kb
 llm = HuggingFaceEndpoint(
     repo_id="mistralai/Mistral-7B-Instruct-v0.2",
     huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
-    model_kwargs={
-        "temperature": 0.7,
-        "max_new_tokens": 512
-    }
+    temperature=0.7,
+    max_new_tokens=512
 )
+
 
 def analyze_log_content(log_text):
     errors = extract_errors(log_text)
