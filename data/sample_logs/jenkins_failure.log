@@ -1,0 +1,3 @@
+INFO Starting Jenkins job
+ERROR java.lang.NullPointerException at com.example.BuildHandler.run(BuildHandler.java:45)
+INFO Build step 'Execute shell' marked build as failure
