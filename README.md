@@ -1,3 +1,19 @@
+
+---
+title: AgenticOps
+emoji: 🔧
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: "4.24.0"
+app_file: app.py
+pinned: false
+---
+
+# AgenticOps – DevOps Log Analyzer
+
+This Gradio app uses an LLM + RAG-powered agent to analyze uploaded Jenkins/Kubernetes logs and suggest root causes and fixes based on internal KB context.
+
 # 🤖 AgenticOps – Intelligent Agent + RAG Framework for DevOps Automation
 
 ## 🔍 Overview
