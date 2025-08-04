@@ -24,33 +24,28 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # ✅ Simulated GPU Test Block
     - name: Simulate GPU Model Test
       run: |
-        echo ">>> Running simulated GPU test"
-        python -c "import torch; print('CUDA available:', torch.cuda.is_available())"
-        python tests/test_model_gpu.py || echo 'GPU test failed' > tests/output_logs/gpu_test_log.txt
+        echo ">>> Running simulated GPU LLM test"
+        mkdir -p tests/output_logs
+        python tests/test_model_gpu.py || echo '⚠️ GPU test failed (expected on CPU runner)'
       continue-on-error: true
 
-    # ✅ Vectorstore test
     - name: Test Vectorstore Build
       run: |
         python tests/test_vectorstore.py
 
-    # ✅ Regression testing on logs
     - name: Regression Log Analysis
       run: |
         pytest tests/test_logs_regression.py
 
-    # ✅ Check reproducibility (FAISS, etc.)
     - name: Artifact Determinism Check
       run: |
         python tests/test_artifact_hash.py
 
-    # ✅ Archive logs for AgenticOps
     - name: Archive CI Logs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: agenticops-logs
         path: tests/output_logs/
