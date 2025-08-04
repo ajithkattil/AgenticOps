@@ -1,0 +1,57 @@
+name: AgenticOps CI Pipeline  # Name of the workflow shown in GitHub Actions UI
+
+on:
+  push:            # Trigger workflow when someone pushes code to the repo
+    branches:
+      - main       # Only run this workflow on the main branch
+  pull_request:    # Also run the workflow when a PR is created or updated
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest   # Use GitHub-hosted runner with Ubuntu
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3  # Pulls the repo content into the runner
+
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Set up Python environment
+      with:
+        python-version: '3.10'       # Match your local Python version
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # ✅ 1. GPU-Based Model Tests (if running in a GPU environment)
+    - name: Run GPU Model Test
+      run: |
+        python -c "import torch; assert torch.cuda.is_available(), 'GPU not available'"
+        python tests/test_model_gpu.py  # You can create this test script to validate GPU model usage
+      continue-on-error: true  # Allow test to pass gracefully in CPU-only CI environments
+
+    # ✅ 2. Embedding Pipeline & Vectorstore Verification
+    - name: Verify FAISS Vectorstore Build
+      run: |
+        python tests/test_vectorstore.py  # Test that vectorstore loads & responds to queries
+
+    # ✅ 3. Regression Tests on Known Logs
+    - name: Regression Testing on Historical Logs
+      run: |
+        pytest tests/test_logs_regression.py  # Validate log → response consistency
+
+    # ✅ 4. Check Reproducibility of Artifacts
+    - name: Artifact Determinism Check
+      run: |
+        python tests/test_artifact_hash.py  # Compare FAISS index hashes across builds
+
+    # (Optional) Save logs or test reports as GitHub Action artifacts
+    - name: Archive Test Outputs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: tests/output_logs/
