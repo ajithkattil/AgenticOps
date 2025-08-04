@@ -38,7 +38,7 @@ jobs:
 
     - name: Regression Log Analysis
       run: |
-        pytest tests/test_logs_regression.py
+        PYTHONPATH=. pytest tests/test_logs_regression.py
 
     - name: Artifact Determinism Check
       run: |
