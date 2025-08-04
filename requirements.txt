@@ -3,9 +3,10 @@ langchain-community
 langchain-huggingface
 sentence-transformers
 torch
-gradio
 python-dotenv
 faiss-cpu
 numpy<2
 langchain-huggingface
+gradio>=3.41.0
+
 
