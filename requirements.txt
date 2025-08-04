@@ -8,5 +8,6 @@ faiss-cpu
 numpy<2
 langchain-huggingface
 gradio>=3.41.0
+pytest
 
 
