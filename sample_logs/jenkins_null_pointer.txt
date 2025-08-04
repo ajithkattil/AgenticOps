@@ -1,0 +1,6 @@
+java.lang.NullPointerException
+    at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:xxx)
+    at java.base/java.lang.Thread.run(Thread.java:xxx)
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE
+
