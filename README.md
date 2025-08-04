@@ -1,4 +1,3 @@
-
 ---
 title: AgenticOps
 emoji: 🔧
@@ -61,7 +60,6 @@ This POC showcases how AI agents can reason over logs, fetch knowledge from inte
 ---
 
 ## 🗂️ Directory Structure
- ### 🗂️ Directory Structure
 
 ```plaintext
 AgenticOps/
@@ -82,9 +80,19 @@ AgenticOps/
 │   └── index/                       # FAISS local index storage
 ├── ui/
 │   └── app.py                       # Gradio UI for file uploads and chat interface
+├── tests/
+│   ├── test_model_gpu.py           # GPU & model loading check
+│   ├── test_vectorstore.py         # Vector ingestion + similarity
+│   ├── test_logs_regression.py     # Known log output validation
+│   └── test_artifact_hash.py       # Artifact reproducibility
+├── .github/
+│   └── workflows/
+│       └── ci.yml                  # GitHub Actions CI config
 ├── requirements.txt                 # Python dependencies
 └── .env                             # Environment variables (API keys, model config)
+```
 
+---
 
 ## 🔄 Product Workflow
 
@@ -103,6 +111,30 @@ AgenticOps/
    - Uses Mistral/Phi-3 to generate root cause explanation and fix suggestion
 5. **UI**:
    - Output displayed in Gradio interface
+
+---
+
+## 🔬 CI Testing Strategy
+
+This project includes a GitHub Actions CI workflow with the following automated tests:
+
+### 1. ✅ GPU-based LLM Validation (`test_model_gpu.py`)
+- Confirms CUDA availability via `torch.cuda.is_available()`
+- Loads Hugging Face model on GPU and processes a dummy input
+- Verifies latency and memory usage using `nvidia-smi` or `torch.cuda` utilities
+
+### 2. ✅ Vector Store Ingestion Test (`test_vectorstore.py`)
+- Loads a sample `.txt` file and builds a FAISS vector store
+- Verifies similarity search returns expected document chunks
+
+### 3. ✅ Regression Log Tests (`test_logs_regression.py`)
+- Uses known issue logs (e.g., Jenkins/K8s errors) from `tests/sample_logs/*.txt`
+- Passes each log through the pipeline
+- Asserts response includes specific keywords to avoid regressions
+
+### 4. ✅ Deterministic Artifact Checks (`test_artifact_hash.py`)
+- Ensures that FAISS index artifacts are consistent across runs
+- Hashes the index file and compares against expected value
 
 ---
 
@@ -126,7 +158,12 @@ ollama run mistral         # or ollama run phi3
 
 # 5. Launch the Gradio UI
 python ui/app.py
-🔮 Future Ideas
+```
+
+---
+
+## 🔮 Future Ideas
+
 ✅ Slack / CLI Bot interface
 
 ✅ GitOps triggers (e.g., auto-create JIRA tickets or PRs)
@@ -137,7 +174,10 @@ python ui/app.py
 
 ✅ Fine-tuning on internal incident postmortems
 
-🧠 Credits
+---
+
+## 🧠 Credits
+
 AgenticOps is built with ❤️ using open-source AI, LangGraph, LangChain, Ollama, Gradio, and DevOps best practices.
 
 Designed to showcase innovation in AI-powered observability, explainability, and automation for SREs and platform teams.
