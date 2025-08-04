@@ -1,0 +1,25 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10, pytest-7.1.1
+collected 1 item
+
+tests/test_model_gpu.py::test_llm_gpu 
+🟡 Starting test_llm_gpu...
+🔍 Checking for GPU...
+❌ GPU is not available.
+FAILED (1 failed)
+
+================================== FAILURES ===================================
+________________________________ test_llm_gpu _________________________________
+
+    def test_llm_gpu():
+>       assert torch.cuda.is_available(), "❌ GPU is not available."
+E       AssertionError: ❌ GPU is not available.
+
+tests/test_model_gpu.py:14: AssertionError
+------------------------------ Captured stdout -------------------------------
+🟡 Starting test_llm_gpu...
+🔍 Checking for GPU...
+
+=========================== short test summary info ============================
+FAILED tests/test_model_gpu.py::test_llm_gpu - AssertionError: ❌ GPU is not available.
+

@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10, pytest-7.1.1
+collected 1 item
+
+tests/test_model_gpu.py::test_llm_gpu 
+🟡 Starting test_llm_gpu...
+🔍 Checking for GPU...
+✅ CUDA available: True
+📦 Loading model: mistralai/Mistral-7B-Instruct-v0.2
+📝 Prompt: What is DevOps?
+✅ Inference done in 1.24 seconds.
+🧠 Response: DevOps is a combination of software development and IT operations that shortens the development lifecycle...
+
+PASSED (1 passed)
+
+=========================== short test summary info ============================
+PASSED tests/test_model_gpu.py::test_llm_gpu
+

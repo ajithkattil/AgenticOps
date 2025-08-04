@@ -1,0 +1,26 @@
+Started by user John Doe
+Running as SYSTEM
+Building in workspace /var/lib/jenkins/workspace/sample-job
+[EnvInject] - Loading node environment variables.
+[EnvInject] - Preparing an environment for the build.
+[EnvInject] - Injecting environment variables from a build step.
+[EnvInject] - Variables injected successfully.
+
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins-Agent in /var/lib/jenkins/workspace/sample-job
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ echo "Building project..."
+Building project...
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ pytest tests/
+============================= test session starts ==============================
+platform linux
+
