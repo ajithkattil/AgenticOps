@@ -1,6 +1,32 @@
-java.lang.NullPointerException
-    at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:xxx)
-    at java.base/java.lang.Thread.run(Thread.java:xxx)
-Build step 'Execute shell' marked build as failure
-Finished: FAILURE
+Started by user Ajith
+Running as SYSTEM
+Building in workspace /var/lib/jenkins/workspace/sample-job
 
+[EnvInject] - Loading node environment variables.
+[EnvInject] - Preparing an environment for the build.
+[EnvInject] - Variables injected successfully.
+
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins-Agent in /var/lib/jenkins/workspace/sample-job
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ echo "Building project..."
+Building project...
+[Pipeline] }
+
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] sh
++ ./deploy.sh
+Deploying application...
+
+ERROR: java.lang.NullPointerException at line 45
+Jenkins build failed due to a NullPointerException in CpsThreadGroup.java
+
+[Pipeline] }
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
