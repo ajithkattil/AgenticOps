@@ -95,6 +95,7 @@ AgenticOps/
 ---
 
 ## 🔄 Product Workflow
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/12b4fac7-a8cb-4153-8d59-340d114f4673" />
 
 ### Example Input:
 > “Why did my Kubernetes pod crash?”  
