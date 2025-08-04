@@ -1,0 +1,4 @@
+Paste Log Text (Optional),Upload Log File (Optional),Or Select Sample Log,output,timestamp
+,.gradio/flagged/Upload Log File Optional/b18c0a863168c7412717/gpu_test_error.log,None,"❗ Detected an error pattern. The issue appears to be related to a missing dependency or runtime failure.
+
+💡 Suggestion: Double-check your environment and dependency versions.",2025-08-04 11:05:39.782203

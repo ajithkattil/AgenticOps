@@ -1,47 +1,58 @@
 import gradio as gr
-import sys, os
-
-# Ensure internal modules are accessible
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import os
 
 from agents.log_analyzer_agent import analyze_log_content
 from retriever.kb_ingest import build_vectorstore
 
-# Rebuild vectorstore in /tmp for Hugging Face Spaces
+# Rebuild vectorstore in /tmp (for Hugging Face Spaces)
 VECTOR_DB_PATH = "/tmp/vectorstore"
 os.makedirs(VECTOR_DB_PATH, exist_ok=True)
 build_vectorstore(VECTOR_DB_PATH)
 
-# Unified handler for file + text
-def handle_input(text_input, file_input):
+# Sample logs available for dropdown selection
+SAMPLE_LOGS = {
+    "None": "",
+    "GPU Error Log": "sample_logs/gpu_test_error.log",
+    "GPU Success Log": "sample_logs/gpu_test_success.log"
+}
+
+# Unified handler for text, file, or dropdown
+def handle_input(text_input, file_input, sample_log_key):
     content = ""
 
-    if file_input:
+    if sample_log_key and sample_log_key != "None":
+        try:
+            with open(SAMPLE_LOGS[sample_log_key], "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception as e:
+            return f"❌ Failed to read sample log: {str(e)}"
+
+    elif file_input:
         try:
             with open(file_input.name, "r", encoding="utf-8") as f:
-                content += f.read()
+                content = f.read()
         except Exception as e:
-            return f"❌ Failed to read file: {str(e)}"
+            return f"❌ Failed to read uploaded file: {str(e)}"
 
-    if text_input:
-        content += "\n" + text_input.strip()
+    elif text_input:
+        content = text_input.strip()
 
-    if not content.strip():
-        return "⚠️ Please provide a log file or paste some log content."
+    if not content:
+        return "⚠️ Please provide a log input (upload file, paste text, or choose sample log)."
 
-    result = analyze_log_content(content)
-    return result
+    return analyze_log_content(content)
 
-# Gradio interface
+# UI Layout
 iface = gr.Interface(
     fn=handle_input,
     inputs=[
-        gr.Textbox(lines=10, label="Paste Log Text (Optional)"),
-        gr.File(label="Upload Log File (Optional)")
+        gr.Textbox(lines=8, label="Paste Log Text (Optional)"),
+        gr.File(label="Upload Log File (Optional)"),
+        gr.Dropdown(choices=list(SAMPLE_LOGS.keys()), label="Or Select Sample Log", value="None")
     ],
     outputs="text",
-    title="AgenticOps – DevOps Log Analyzer (Hugging Face)",
-    description="Paste DevOps logs or upload a .txt file. Agentic AI will analyze the error and suggest a fix using LLM + RAG."
+    title="AgenticOps – DevOps + GPU CI Log Analyzer",
+    description="Paste CI logs (e.g., from Jenkins, PyTorch, CUDA), upload a file, or select a sample log to simulate failure/success. Agentic AI will analyze and suggest fixes."
 )
 
 if __name__ == "__main__":
